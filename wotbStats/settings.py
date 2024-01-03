@@ -57,7 +57,7 @@ ROOT_URLCONF = 'wotbStats.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'compare' / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
