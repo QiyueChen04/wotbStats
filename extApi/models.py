@@ -11,3 +11,5 @@ class Tanks(models.Model):
     tier = models.IntegerField(blank = True, null = True)
     type = models.CharField(max_length=255, blank = True, null = True)
     
+    class Meta:
+        verbose_name_plural = "Tanks"
