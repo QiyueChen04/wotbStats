@@ -19,6 +19,6 @@ from django.urls import include, path
 
 urlpatterns = [
     path('compare/', include('compare.urls')),
-    path('extApi', include('extApi.urls')),
+    path('extApi/', include('extApi.urls')),
     path('admin/', admin.site.urls),
 ]
