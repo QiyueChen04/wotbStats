@@ -16,16 +16,6 @@ def compare(request):
             return render(request, 'compare.html', {'context': context})
 
     form = SearchForm()
-    return render(request, 'compare.html', {'form': form})
+    context = {'form': form}
+    return render(request, 'compare.html', {'context': context})
 
-
-#     return render(request, 'deault')
-
-# def search_tank(request):
-#     if request.method == 'GET':
-#         form = SearchForm(request.GET)
-#         if form.is_valid():
-#             search_query = form.cleaned_data['search_suery']
-#             return search_query
-
-#     #return render(request, 'compareTanks.html')
