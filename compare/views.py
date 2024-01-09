@@ -13,9 +13,8 @@ def compare(request):
                 'query': search_query, 
                 'results': search_results
             }
-            return render(request, 'compare.html', {'context': context})
+            return render(request, 'new.html', {'context': context})
 
     form = SearchForm()
     context = {'form': form}
-    return render(request, 'compare.html', {'context': context})
-
+    return render(request, 'new.html', {'context': context})
