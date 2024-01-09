@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import requests
-from .models import Tanks
+from .models import Tank
 
 def save_api_response(request):
     url = 'https://api.wotblitz.com/wotb/encyclopedia/vehicles/?application_id=c6cb8f261ef9988cb66ea9a5d1271a60&fields=tank_id%2C+name%2C+images.preview%2C+images.normal%2C+nation%2C+is_premium%2C+tier%2C+type'
@@ -11,7 +11,7 @@ def save_api_response(request):
         api_data = response.json()
 
         for tank in api_data['data'].values():
-            model_instance = Tanks(
+            model_instance = Tank(
                 tank_id = tank['tank_id'],
                 name = tank['name'],
                 image_preview = tank['images']['preview'],

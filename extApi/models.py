@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class Tanks(models.Model):
+class Tank(models.Model):
     tank_id = models.IntegerField(primary_key = True)
     name = models.CharField(max_length=255, blank = True, null = True)
     image_preview = models.CharField(max_length=255, blank = True, null = True)
@@ -10,6 +10,7 @@ class Tanks(models.Model):
     is_premium = models.IntegerField(blank = True, null = True)
     tier = models.IntegerField(blank = True, null = True)
     type = models.CharField(max_length=255, blank = True, null = True)
-    
-    class Meta:
-        verbose_name_plural = "Tanks"
+
+    def __str__(self):
+        return self.tank_id
+
