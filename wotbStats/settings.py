@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'extApi',
     'compare',
+    'homepage',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +58,7 @@ ROOT_URLCONF = 'wotbStats.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'compare' / 'templates'],
+        'DIRS': [BASE_DIR / 'wotbStats' / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
