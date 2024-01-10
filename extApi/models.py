@@ -61,7 +61,6 @@ class Tank(models.Model):
     tier = models.IntegerField(blank = True, null = True)
     type = models.CharField(max_length=255, blank = True, null = True)
 
-    tank_id = models.IntegerField(primary_key = True)
     front = models.IntegerField(blank = True, null = True)
     sides = models.IntegerField(blank = True, null = True)
     rear = models.IntegerField(blank = True, null = True)
