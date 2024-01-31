@@ -29,8 +29,10 @@
             <div class="row">
                 {% for tank in context.tank_results %}
                 <div class = "col-sm" align = "center">
-                    <img src = {{tank.image_normal}} alt = "tank image" style = "width:100px;height:100px;">
-                    <p>{{tank.name}}</p>
+                    <a class="btn btn-light" href="/compare/{{tank.name}}" role="button">
+                        <img src = {{tank.image_normal}} alt = "tank image" style = "width:100px;height:100px;">
+                        <p>{{tank.name}}</p>
+                    </a>
                 </div>
                 {% endfor %} 
             </div>
