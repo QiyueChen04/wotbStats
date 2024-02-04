@@ -18,8 +18,7 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path('', include('homepage.urls')),
-    path('compare/', include('compare.urls')),
-    path('extApi/', include('extApi.urls')),
+    #path('extApi/', include('extApi.urls')),
     path('admin/', admin.site.urls),
+    path('', include('api.urls')),
 ]
