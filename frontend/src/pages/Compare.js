@@ -2,28 +2,39 @@ import React from 'react'
 import {useState, useEffect} from 'react'
 
 export default function Compare() {
-    const [tanks, setTanks] = useState([]);
+  const [allTanks, setAllTanks] = useState([]);
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const [shownTanks, setShownTanks] = useState([]);
 
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/api/")
+      fetch("http://127.0.0.1:8000/api/allTanks/")
         .then(res => res.json())
         .then(
-            (result) => {
-            tanks(result);
-           },
-            // Note: it's important to handle errors here
-            // instead of a catch() block so that we don't swallow
-            // exceptions from actual bugs in components.
+          (result) => {
+            setIsLoaded(true);
+            setAllTanks(result);
+          },
+          (error) => {
+            setIsLoaded(true);
+            setError(error);
+          }
         )
     }, [])
 
-    return (
-        <ul>
-        {tanks.map(tank => (
-            <li key={tank.id}>
-            {tank.name} {tank.tier}
-            </li>
-        ))}
-        </ul>
-    );
+    if (error) {
+      return <div>Error: {error.message}</div>;
+    } else if (!isLoaded) {
+      return <div>Loading...</div>;
+    } else {
+      const listAllTanks = allTanks.map((tank) =>
+      <li key={tank.tank_id}>
+        {tank.name}
+      </li>
+      );
+      return (
+        <ul>{listAllTanks}</ul>
+      );
+    }
 }
