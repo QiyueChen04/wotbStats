@@ -5,8 +5,16 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form'
+
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Button from 'react-bootstrap/Button'
+
+import Card from 'react-bootstrap/Card'
+import CardHeader from 'react-bootstrap/CardHeader'
+import CardImg from 'react-bootstrap/CardImg'
+import CardBody from 'react-bootstrap/CardBody'
+import CardImgOverlay from 'react-bootstrap/CardImgOverlay'
+import cardBody from 'react-bootstrap/CardBody'
 
 function Filter( {allTanks} ) {
   const [searchResult, setSearchResult] = useState('');
@@ -14,45 +22,76 @@ function Filter( {allTanks} ) {
   const [type, setType] = useState('mediumTank');
   const [filteredTanks, setFilteredTanks] = useState([]);
 
+  function filter() {
+    if(searchResult != '') {
+      let filteredResult = allTanks.filter((tank) => tank.name.toLowerCase().match(searchResult));
+      setFilteredTanks(filteredResult);
+    }
+    else {
+      let filteredResult = allTanks.filter((tank) => tank.tier === (tier)).filter((tank) => String(tank.type) === type);
+      setFilteredTanks(filteredResult);
+    }
+  }
+
+  function handleChangeSearch(str) {
+    setSearchResult(str);
+    filter();
+  }
+
   function handleChangeTier(num) { 
     setSearchResult('');
     setTier(num);
+    filter();
   }
 
   function handleChangeType(str) {
     setSearchResult('');
     setType(str);
+    filter();
   }
 
   return (
     <>
       <Container className='container text-center'>
         <Row className='justify-content-md-center'>
-          <SearchBar searchResult = {searchResult} setSearchResult = {setSearchResult} />
+          <SearchBar searchResult = {searchResult} onChangeSearch = {handleChangeSearch} />
         </Row>
-        <Row>
-          <hr />
-        </Row>
+
+        <hr />
+
         <Row className='justify-content-md-center'>
           <TierSelection onChangeTier = {handleChangeTier} />
         </Row>
-        <Row>
-          <hr />
-        </Row>
+
+        <hr />
+
         <Row className='justify-content-md-center'>
           <TypeSelection onChangeType = {handleChangeType} />
         </Row>
       </Container>
 
-      <p>{searchResult}</p>
-      <p>{tier}</p>
-      <p>{type}</p>
+      <hr />
 
+      <Container>
+        <Row className='justify-content-md-center'>
+        {filteredTanks.map((tank) => (
+          <Col key={tank.tank_id}>
+            <Card style={{ width: '12rem'}} className="text-center">
+              <cardBody>
+                <CardImg src = {tank.image_preview} alt = "tank image"/>
+                <CardBody>{tank.name}</CardBody>
+                <Button variant="primary">Select</Button>
+              </cardBody>
+            </Card>
+          </Col>
+        ))}
+        </Row>
+      </Container>
     </>
   );
 }
 
-function SearchBar({searchResult, setSearchResult}) {
+function SearchBar({searchResult, onChangeSearch}) {
   return (
     <>
       <Col className='col col-lg-2'>
@@ -61,7 +100,7 @@ function SearchBar({searchResult, setSearchResult}) {
           type="text" 
           value={searchResult} 
           placeholder="Search..." 
-          onChange={(e) => setSearchResult(e.target.value)} 
+          onChange={(e) => onChangeSearch(e.target.value)} 
           />
         </Form>
       </Col>
@@ -101,12 +140,20 @@ function TypeSelection({onChangeType}) {
   );
 }
 
+function DisplayTanks({shownTanks}) {
+
+}
+
 export default function Compare() {
   const [allTanks, setAllTanks] = useState([]);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const [shownTanks, setShownTanks] = useState([]);
+  const [chosenTanks, setChosenTanks] = useState([]);
+
+  function addTanks(newTank) {
+    setChosenTanks([...chosenTanks, newTank]);
+  }
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/allTanks/")
@@ -125,24 +172,15 @@ export default function Compare() {
 
   if (error) {
     return <div>Error: {error.message}</div>;
-  } else if (!isLoaded) {
+  } 
+  else if (!isLoaded) {
     return <div>Loading...</div>;
   }
 
   return (
     <Container fluid>
       <Filter allTanks={allTanks} />
+      <DisplayTanks />
     </Container>
   )
-  
-  // } else {
-  //   const listAllTanks = allTanks.map((tank) =>
-  //   <li key={tank.tank_id}>
-  //     {tank.name}
-  //   </li>
-  //   );
-  //   return (
-  //     <ul>{listAllTanks}</ul>
-  //   );
-  // }
 }

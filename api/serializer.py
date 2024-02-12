@@ -4,4 +4,4 @@ from extApi.models import Tank
 class TankSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tank
-        fields = ('name', 'tier')
+        fields = '__all__'
