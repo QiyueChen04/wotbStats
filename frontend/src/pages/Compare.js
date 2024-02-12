@@ -10,14 +10,19 @@ import Button from 'react-bootstrap/Button'
 
 function Filter( {allTanks} ) {
   const [searchResult, setSearchResult] = useState('');
-  const [tier, setTier] = useState();
+  const [tier, setTier] = useState(10);
   const [type, setType] = useState('mediumTank');
   const [filteredTanks, setFilteredTanks] = useState([]);
 
-  // function handleChangeTier(num) { 
-  //   setSearchResult = '';
-  //   setTier(num);
-  // }
+  function handleChangeTier(num) { 
+    setSearchResult('');
+    setTier(num);
+  }
+
+  function handleChangeType(str) {
+    setSearchResult('');
+    setType(str);
+  }
 
   return (
     <>
@@ -29,13 +34,13 @@ function Filter( {allTanks} ) {
           <hr />
         </Row>
         <Row className='justify-content-md-center'>
-          <TierSelection setTier = {setTier} />
+          <TierSelection onChangeTier = {handleChangeTier} />
         </Row>
         <Row>
           <hr />
         </Row>
         <Row className='justify-content-md-center'>
-          <TypeSelection setType = {setType} />
+          <TypeSelection onChangeType = {handleChangeType} />
         </Row>
       </Container>
 
@@ -64,33 +69,33 @@ function SearchBar({searchResult, setSearchResult}) {
   );
 }
 
-function TierSelection({setTier}) {
+function TierSelection({onChangeTier}) {
   return (
     <>
       <ButtonGroup className="me-2" aria-label="First group">
-        <Button onClick={() => setTier(1)}>1</Button>
-        <Button onClick={() => setTier(2)}>2</Button>
-        <Button onClick={() => setTier(3)}>3</Button>
-        <Button onClick={() => setTier(4)}>4</Button>
-        <Button onClick={() => setTier(5)}>5</Button>
-        <Button onClick={() => setTier(6)}>6</Button>
-        <Button onClick={() => setTier(7)}>7</Button>
-        <Button onClick={() => setTier(8)}>8</Button>
-        <Button onClick={() => setTier(9)}>9</Button>
-        <Button onClick={() => setTier(10)}>10</Button>
+        <Button onClick={() => onChangeTier(1)}>1</Button>
+        <Button onClick={() => onChangeTier(2)}>2</Button>
+        <Button onClick={() => onChangeTier(3)}>3</Button>
+        <Button onClick={() => onChangeTier(4)}>4</Button>
+        <Button onClick={() => onChangeTier(5)}>5</Button>
+        <Button onClick={() => onChangeTier(6)}>6</Button>
+        <Button onClick={() => onChangeTier(7)}>7</Button>
+        <Button onClick={() => onChangeTier(8)}>8</Button>
+        <Button onClick={() => onChangeTier(9)}>9</Button>
+        <Button onClick={() => onChangeTier(10)}>10</Button>
       </ButtonGroup>
     </>
   );
 }
 
-function TypeSelection({setType}) {
+function TypeSelection({onChangeType}) {
   return (
     <>
       <ButtonGroup className="me-2" aria-label="First group">
-        <Button onClick={() => setType('lightTank')}>Light</Button>
-        <Button onClick={() => setType('mediumTank')}>Medium</Button>
-        <Button onClick={() => setType('heavyTank')}>Heavy</Button>
-        <Button onClick={() => setType('AT-SPG')}>TD</Button>
+        <Button onClick={() => onChangeType('lightTank')}>Light</Button>
+        <Button onClick={() => onChangeType('mediumTank')}>Medium</Button>
+        <Button onClick={() => onChangeType('heavyTank')}>Heavy</Button>
+        <Button onClick={() => onChangeType('AT-SPG')}>TD</Button>
       </ButtonGroup>
     </>
   );
