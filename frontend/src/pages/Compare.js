@@ -6,6 +6,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form'
 
+import Image from 'react-bootstrap/Image'
+
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Button from 'react-bootstrap/Button'
 
@@ -206,25 +208,48 @@ export default function Compare() {
         </Row>
       </Container>
       <hr />
-      {/* <div class="container text-center">
-        <div class="col align-items-start">
-          <div class="row">
-            One of three columns
-            nextline
-          </div>
-          <div class="row">
-            Two of three columns
-          </div>
-          <div class="row">
-            Three of three columns
-          </div>
-        </div>
-      </div> */}
       <Container>
+        <Table striped border hover>
+          <thead>
+            <tr>
+              <td> Tank </td>
+              <td> Caliber</td>
+              <td> Reload Time  </td>
+              <td> Gun Depression  </td>
+              <td> Gun Elevation  </td>
+
+              <td> HP </td>
+              <td> Front Armor</td>
+              <td> Side Armor</td>
+              <td> Rear Armor</td>
+            </tr>
+          </thead>
+          <tbody>
+            {chosenTanks.map((tank) =>
+              <tr>
+                <td>
+                  <Image src={tank.image_preview} width={80} height={60}/>
+
+                </td>
+
+                <td>{tank.caliber}</td>
+                <td>{tank.reload_time}</td>
+                <td>{tank.move_down_arc}</td>
+                <td>{tank.move_up_arc}</td>
+
+                <td>{tank.hp}</td>
+                <td>{tank.front}</td>
+                <td>{tank.sides}</td>
+                <td>{tank.rear}</td>
+              </tr>
+            )}
+          </tbody>
+        </Table>
+      </Container>
+      {/* <Container>
         <Table striped="columns" bordered={true}>
           <tbody>
             <Row>
-              
               <Col>
                 <tr>
                   <td> Name</td>
@@ -244,60 +269,12 @@ export default function Compare() {
                 </Col>
               )} 
             </Row>
-            <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td colSpan={2}>Larry the Bird</td>
-          <td>@twitter</td>
-        </tr>
-          </tbody>
+           </tbody>
           
         </Table>
-      </Container>
+      </Container> */}
 
         
     </>
-    //       {/* </tbody>
-    //     </table> 
-    //   </Row>
-    //   <Row>
-    //     <Container>
-    //       <Row className='justify-content-md-center'>
-    //       {chosenTanks.map((tank) => 
-    //         <Col key={tank.tank_id}>
-    //           <Card style={{ width: '12rem'}} className="text-center">
-    //             <cardBody>
-    //               <CardImg src = {tank.image_preview} alt = "tank image"/>
-    //               <CardBody>{tank.name}</CardBody>
-    //             </cardBody>
-    //           </Card>
-    //         </Col>
-    //       )}
-    //       </Row>
-    //     </Container>
-    //   </Row>
-    // </Container> */}
   );
 }
-
-{/* <tbody>
-          {chosenTanks.map((tank) =>
-            <tr key={tank.tank_id}>
-              <th><img src = {tank.image_preview} alt = "tank image"/></th>
-              <th>{tank.name}</th>
-              <th>{tank.tier}</th>
-              <th>{tank.type}</th>
-            </tr>
-          )}
-        </tbody> */}

@@ -64,9 +64,12 @@ class Tank(models.Model):
     front = models.IntegerField(blank = True, null = True)
     sides = models.IntegerField(blank = True, null = True)
     rear = models.IntegerField(blank = True, null = True)
+
     speed_forward = models.IntegerField(blank = True, null = True)
     speed_backward = models.IntegerField(blank = True, null = True)
+    
     hp = models.IntegerField(blank = True, null = True)
+
     move_down_arc = models.IntegerField(blank = True, null = True)
     move_up_arc = models.IntegerField(blank = True, null = True)
     caliber = models.IntegerField(blank = True, null = True)
@@ -74,6 +77,7 @@ class Tank(models.Model):
     reload_time = models.FloatField(blank = True, null = True) 
     clip_capacity = models.IntegerField(blank = True, null = True)
     clip_reload_time = models.FloatField(blank = True, null = True) 
+
     gun_traverse_speed = models.FloatField(blank = True, null = True) 
     turret_traverse_speed = models.IntegerField(blank = True, null = True)
     hull_hp = models.IntegerField(blank = True, null = True) 
