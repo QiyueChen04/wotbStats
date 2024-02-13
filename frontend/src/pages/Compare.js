@@ -201,6 +201,7 @@ export default function Compare() {
       <Row>
         <Filter allTanks={allTanks} onAddTank={handleAddTank} />
       </Row>
+      <hr />
       <Row>
         <Container>
           <Row className='justify-content-md-center'>
