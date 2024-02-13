@@ -16,6 +16,8 @@ import CardBody from 'react-bootstrap/CardBody'
 import CardImgOverlay from 'react-bootstrap/CardImgOverlay'
 import cardBody from 'react-bootstrap/CardBody'
 
+import Table from 'react-bootstrap/Table'
+
 function Filter( {allTanks, onAddTank} ) {
   const [searchResult, setSearchResult] = useState('');
   const [tier, setTier] = useState(10);
@@ -197,27 +199,105 @@ export default function Compare() {
   }
 
   return (
-    <Container fluid>
-      <Row>
-        <Filter allTanks={allTanks} onAddTank={handleAddTank} />
-      </Row>
+    <>
+      <Container fluid>
+        <Row>
+          <Filter allTanks={allTanks} onAddTank={handleAddTank} />
+        </Row>
+      </Container>
       <hr />
-      <Row>
-        <Container>
-          <Row className='justify-content-md-center'>
-          {chosenTanks.map((tank) => 
-            <Col key={tank.tank_id}>
-              <Card style={{ width: '12rem'}} className="text-center">
-                <cardBody>
-                  <CardImg src = {tank.image_preview} alt = "tank image"/>
-                  <CardBody>{tank.name}</CardBody>
-                </cardBody>
-              </Card>
-            </Col>
-          )}
-          </Row>
-        </Container>
-      </Row>
-    </Container>
-  )
+      {/* <div class="container text-center">
+        <div class="col align-items-start">
+          <div class="row">
+            One of three columns
+            nextline
+          </div>
+          <div class="row">
+            Two of three columns
+          </div>
+          <div class="row">
+            Three of three columns
+          </div>
+        </div>
+      </div> */}
+      <Container>
+        <Table striped="columns" bordered={true}>
+          <tbody>
+            <Row>
+              
+              <Col>
+                <tr>
+                  <td> Name</td>
+                </tr>
+                <tr>
+                  <td> Name</td>
+                </tr>
+                <tr>
+                  <td> Name</td>
+                </tr>
+              </Col>
+              {chosenTanks.map((tank) => 
+                <Col key={tank.tank_id}>
+                  <Row>{tank.name}</Row>
+                  <Row>{tank.tier}</Row>
+                  <Row>{tank.type}</Row>
+                </Col>
+              )} 
+            </Row>
+            <tr>
+          <td>1</td>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td colSpan={2}>Larry the Bird</td>
+          <td>@twitter</td>
+        </tr>
+          </tbody>
+          
+        </Table>
+      </Container>
+
+        
+    </>
+    //       {/* </tbody>
+    //     </table> 
+    //   </Row>
+    //   <Row>
+    //     <Container>
+    //       <Row className='justify-content-md-center'>
+    //       {chosenTanks.map((tank) => 
+    //         <Col key={tank.tank_id}>
+    //           <Card style={{ width: '12rem'}} className="text-center">
+    //             <cardBody>
+    //               <CardImg src = {tank.image_preview} alt = "tank image"/>
+    //               <CardBody>{tank.name}</CardBody>
+    //             </cardBody>
+    //           </Card>
+    //         </Col>
+    //       )}
+    //       </Row>
+    //     </Container>
+    //   </Row>
+    // </Container> */}
+  );
 }
+
+{/* <tbody>
+          {chosenTanks.map((tank) =>
+            <tr key={tank.tank_id}>
+              <th><img src = {tank.image_preview} alt = "tank image"/></th>
+              <th>{tank.name}</th>
+              <th>{tank.tier}</th>
+              <th>{tank.type}</th>
+            </tr>
+          )}
+        </tbody> */}
