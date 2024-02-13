@@ -16,7 +16,7 @@ import CardBody from 'react-bootstrap/CardBody'
 import CardImgOverlay from 'react-bootstrap/CardImgOverlay'
 import cardBody from 'react-bootstrap/CardBody'
 
-function Filter( {allTanks} ) {
+function Filter( {allTanks, onAddTank} ) {
   const [searchResult, setSearchResult] = useState('');
   const [tier, setTier] = useState(10);
   const [type, setType] = useState('mediumTank');
@@ -80,7 +80,7 @@ function Filter( {allTanks} ) {
               <cardBody>
                 <CardImg src = {tank.image_preview} alt = "tank image"/>
                 <CardBody>{tank.name}</CardBody>
-                <Button variant="primary">Select</Button>
+                <Button variant="primary" onClick={(e) => onAddTank(tank)}>Select</Button>
               </cardBody>
             </Card>
           </Col>
@@ -141,7 +141,22 @@ function TypeSelection({onChangeType}) {
 }
 
 function DisplayTanks({shownTanks}) {
-
+  return(
+      <Container>
+        <Row className='justify-content-md-center'>
+        {shownTanks?.map((tank) => 
+          <Col key={tank.tank_id}>
+            <Card style={{ width: '12rem'}} className="text-center">
+              <cardBody>
+                <CardImg src = {tank.image_preview} alt = "tank image"/>
+                <CardBody>{tank.name}</CardBody>
+              </cardBody>
+            </Card>
+          </Col>
+        )}
+        </Row>
+      </Container>
+  );
 }
 
 export default function Compare() {
@@ -151,8 +166,12 @@ export default function Compare() {
 
   const [chosenTanks, setChosenTanks] = useState([]);
 
-  function addTanks(newTank) {
+  function handleAddTank(newTank) {
     setChosenTanks([...chosenTanks, newTank]);
+  }
+
+  function handleDeleteTank(newTank) {
+    
   }
 
   useEffect(() => {
@@ -179,8 +198,25 @@ export default function Compare() {
 
   return (
     <Container fluid>
-      <Filter allTanks={allTanks} />
-      <DisplayTanks />
+      <Row>
+        <Filter allTanks={allTanks} onAddTank={handleAddTank} />
+      </Row>
+      <Row>
+        <Container>
+          <Row className='justify-content-md-center'>
+          {chosenTanks.map((tank) => 
+            <Col key={tank.tank_id}>
+              <Card style={{ width: '12rem'}} className="text-center">
+                <cardBody>
+                  <CardImg src = {tank.image_preview} alt = "tank image"/>
+                  <CardBody>{tank.name}</CardBody>
+                </cardBody>
+              </Card>
+            </Col>
+          )}
+          </Row>
+        </Container>
+      </Row>
     </Container>
   )
 }
