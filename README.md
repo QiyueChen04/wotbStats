@@ -1,7 +1,7 @@
 # wotbStats
 A website made using ReactJS and Django that filters and compares tank statistics.
 
-The [database](db.sqlite3) contains 5 tables storing the tanks' statistics and are linked using tank_id and module_id. The database is [populated](/expapi/views.py) by information obtained from the offical [Wargaming Api](https://developers.wargaming.net/reference/na/wot/account/list/?language=en). 
+The [database](db.sqlite3) contains 5 tables storing the tanks' statistics and are linked using tank_id and module_id. The database is [populated](/extApi/views.py) by information obtained from the offical [Wargaming Api](https://developers.wargaming.net/reference/na/wot/account/list/?language=en). 
 
 <img width="500" alt="Screenshot 2024-02-19 at 1 29 41 PM" src="https://github.com/QiyueChen04/wotbStats/assets/116856703/b675026b-5db0-4fa0-b232-c9a41b2dd739">
 <img width="500" alt="Screenshot 2024-02-19 at 1 30 36 PM" src="https://github.com/QiyueChen04/wotbStats/assets/116856703/dee8d3c7-0ef5-4b92-ab2c-21e87b744736">
