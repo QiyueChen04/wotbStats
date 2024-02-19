@@ -16,7 +16,6 @@ import CardHeader from 'react-bootstrap/CardHeader'
 import CardImg from 'react-bootstrap/CardImg'
 import CardBody from 'react-bootstrap/CardBody'
 import CardImgOverlay from 'react-bootstrap/CardImgOverlay'
-import cardBody from 'react-bootstrap/CardBody'
 
 import Table from 'react-bootstrap/Table'
 
