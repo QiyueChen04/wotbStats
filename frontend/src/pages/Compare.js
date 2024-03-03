@@ -19,8 +19,10 @@ export default function Compare() {
     setChosenTanks([...chosenTanks, newTank]);
   }
 
-  function handleDeleteTank(newTank) {
-    
+  function handleRemoveTank(removeTank) {
+    setChosenTanks(
+      chosenTanks.filter(tank => tank !== removeTank)
+    );
   }
 
   useEffect(() => {
@@ -55,10 +57,9 @@ export default function Compare() {
           <Filter allTanks = {allTanks} onAddTank={handleAddTank} />
         </Row>
         <Row>
-          <DisplayTanks chosenTanks = {chosenTanks} />
+          <DisplayTanks chosenTanks = {chosenTanks} onRemoveTank={handleRemoveTank}/>
         </Row>
-      </Container>
-      <hr />        
+      </Container>     
     </>
   );
 }

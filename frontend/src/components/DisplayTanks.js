@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image'
 import Table from 'react-bootstrap/Table'
 
-export function DisplayTanks({chosenTanks}) {
+export function DisplayTanks({chosenTanks, onRemoveTank}) {
   return(
     <Container className='container text-center'>
       <Table striped border hover>
@@ -26,7 +26,7 @@ export function DisplayTanks({chosenTanks}) {
           {chosenTanks.map((tank) =>
             <tr>
               <td>
-                <Image src={tank.image_preview} width={80} height={60}/>
+                <Image src={tank.image_preview} width={80} height={60} onClick={() => onRemoveTank(tank)}/>
               </td>
   
               <td>{tank.caliber}</td>
