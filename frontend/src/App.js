@@ -5,9 +5,7 @@ import Compare from './pages/Compare'
 export default function App() {
   return (
     <div>
-      <Header />
       <Compare />
     </div>
   )
 }
-
