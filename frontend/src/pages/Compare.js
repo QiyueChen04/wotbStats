@@ -19,6 +19,7 @@ import CardImgOverlay from 'react-bootstrap/CardImgOverlay'
 
 import Table from 'react-bootstrap/Table'
 
+// __________________________________________________________________________________________________
 function Filter( {allTanks, onAddTank} ) {
   const [searchResult, setSearchResult] = useState('');
   const [tier, setTier] = useState(10);
@@ -71,23 +72,11 @@ function Filter( {allTanks, onAddTank} ) {
         <Row className='justify-content-md-center'>
           <TypeSelection onChangeType = {handleChangeType} />
         </Row>
-      </Container>
 
       <hr />
 
-      <Container>
         <Row className='justify-content-md-center'>
-        {filteredTanks.map((tank) => (
-          <Col key={tank.tank_id}>
-            <Card style={{ width: '12rem'}} className="text-center">
-              <cardBody>
-                <CardImg src = {tank.image_preview} alt = "tank image"/>
-                <CardBody>{tank.name}</CardBody>
-                <Button variant="primary" onClick={(e) => onAddTank(tank)}>Select</Button>
-              </cardBody>
-            </Card>
-          </Col>
-        ))}
+          <DisplayFilteredTanks filteredTanks = {filteredTanks} onAddTank = {onAddTank} />
         </Row>
       </Container>
     </>
@@ -143,22 +132,62 @@ function TypeSelection({onChangeType}) {
   );
 }
 
-function DisplayTanks({shownTanks}) {
+function DisplayFilteredTanks({filteredTanks, onAddTank}) {
+  return (
+    <>
+    {filteredTanks.map((tank) => (
+      <Col key={tank.tank_id}>
+        <Card style={{ width: '12rem'}} className="text-center">
+          <cardBody>
+            <CardImg src = {tank.image_preview} alt = "tank image"/>
+            <CardBody>{tank.name}</CardBody>
+            <Button variant="primary" onClick={(e) => onAddTank(tank)}>Select</Button>
+          </cardBody>
+        </Card>
+      </Col>
+    ))}
+    </>
+  );
+}
+// __________________________________________________________________________________________________
+
+function DisplayTanks({chosenTanks}) {
   return(
-      <Container>
-        <Row className='justify-content-md-center'>
-        {shownTanks?.map((tank) => 
-          <Col key={tank.tank_id}>
-            <Card style={{ width: '12rem'}} className="text-center">
-              <cardBody>
-                <CardImg src = {tank.image_preview} alt = "tank image"/>
-                <CardBody>{tank.name}</CardBody>
-              </cardBody>
-            </Card>
-          </Col>
+    <Table striped border hover>
+      <thead>
+        <tr>
+          <td> Tank </td>
+          <td> Caliber</td>
+          <td> Reload Time  </td>
+          <td> Gun Depression  </td>
+          <td> Gun Elevation  </td>
+
+          <td> HP </td>
+          <td> Front Armor</td>
+          <td> Side Armor</td>
+          <td> Rear Armor</td>
+        </tr>
+      </thead>
+      <tbody>
+        {chosenTanks.map((tank) =>
+          <tr>
+            <td>
+              <Image src={tank.image_preview} width={80} height={60}/>
+            </td>
+
+            <td>{tank.caliber}</td>
+            <td>{tank.reload_time}</td>
+            <td>{tank.move_down_arc}</td>
+            <td>{tank.move_up_arc}</td>
+
+            <td>{tank.hp}</td>
+            <td>{tank.front}</td>
+            <td>{tank.sides}</td>
+            <td>{tank.rear}</td>
+          </tr>
         )}
-        </Row>
-      </Container>
+      </tbody>
+    </Table>
   );
 }
 
@@ -203,77 +232,13 @@ export default function Compare() {
     <>
       <Container fluid>
         <Row>
-          <Filter allTanks={allTanks} onAddTank={handleAddTank} />
+          <Filter allTanks = {allTanks} onAddTank={handleAddTank} />
+        </Row>
+        <Row>
+          <DisplayTanks chosenTanks = {chosenTanks} />
         </Row>
       </Container>
-      <hr />
-      <Container>
-        <Table striped border hover>
-          <thead>
-            <tr>
-              <td> Tank </td>
-              <td> Caliber</td>
-              <td> Reload Time  </td>
-              <td> Gun Depression  </td>
-              <td> Gun Elevation  </td>
-
-              <td> HP </td>
-              <td> Front Armor</td>
-              <td> Side Armor</td>
-              <td> Rear Armor</td>
-            </tr>
-          </thead>
-          <tbody>
-            {chosenTanks.map((tank) =>
-              <tr>
-                <td>
-                  <Image src={tank.image_preview} width={80} height={60}/>
-
-                </td>
-
-                <td>{tank.caliber}</td>
-                <td>{tank.reload_time}</td>
-                <td>{tank.move_down_arc}</td>
-                <td>{tank.move_up_arc}</td>
-
-                <td>{tank.hp}</td>
-                <td>{tank.front}</td>
-                <td>{tank.sides}</td>
-                <td>{tank.rear}</td>
-              </tr>
-            )}
-          </tbody>
-        </Table>
-      </Container>
-      {/* <Container>
-        <Table striped="columns" bordered={true}>
-          <tbody>
-            <Row>
-              <Col>
-                <tr>
-                  <td> Name</td>
-                </tr>
-                <tr>
-                  <td> Name</td>
-                </tr>
-                <tr>
-                  <td> Name</td>
-                </tr>
-              </Col>
-              {chosenTanks.map((tank) => 
-                <Col key={tank.tank_id}>
-                  <Row>{tank.name}</Row>
-                  <Row>{tank.tier}</Row>
-                  <Row>{tank.type}</Row>
-                </Col>
-              )} 
-            </Row>
-           </tbody>
-          
-        </Table>
-      </Container> */}
-
-        
+      <hr />        
     </>
   );
 }
