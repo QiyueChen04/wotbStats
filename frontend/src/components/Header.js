@@ -1,7 +1,10 @@
 import React from 'react';
+import '../css/Header.css';
 
 export function Header() {
   return (
-    <h1 className='text-center'> Compare Tanks </h1>
+    <div className='header'>
+      Compare Tanks
+    </div>
   )
 }
