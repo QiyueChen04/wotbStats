@@ -1,17 +1,19 @@
 import React from 'react';
 import {useState} from 'react';
 
+import '../css/Filter.css';
+
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form'
 
-import ButtonGroup from 'react-bootstrap/ButtonGroup'
-import Button from 'react-bootstrap/Button'
-
 import Card from 'react-bootstrap/Card'
 import CardImg from 'react-bootstrap/CardImg'
-import CardBody from 'react-bootstrap/CardBody'
+import CardBody from 'react-bootstrap/CardBody' 
+
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
+import Button from 'react-bootstrap/Button'
 
 export function Filter( {allTanks, onAddTank} ) {
   const [searchResult, setSearchResult] = useState('');
@@ -50,26 +52,31 @@ export function Filter( {allTanks, onAddTank} ) {
   return (
     <>
       <Container className='container text-center'>
-        <Row className='justify-content-md-center'>
-          <SearchBar searchResult = {searchResult} onChangeSearch = {handleChangeSearch} />
-        </Row>
+        <Row>
+          <Col>
+            <Row className='justify-content-md-center'>
+              <SearchBar searchResult = {searchResult} onChangeSearch = {handleChangeSearch} />
+            </Row>
 
-        <hr />
+            <br />
 
-        <Row className='justify-content-md-center'>
-          <TierSelection onChangeTier = {handleChangeTier} />
-        </Row>
+            <Row className='justify-content-md-center'>
+              <TierSelection onChangeTier = {handleChangeTier} />
+            </Row>
 
-        <hr />
+            <br />
 
-        <Row className='justify-content-md-center'>
-          <TypeSelection onChangeType = {handleChangeType} />
-        </Row>
+            <Row className='justify-content-md-center'>
+              <TypeSelection onChangeType = {handleChangeType} />
+            </Row>
+          </Col>
 
-        <hr />
+          <Col>
+            <Row>
+              <DisplayFilteredTanks filteredTanks={filteredTanks} onAddTank={onAddTank} />
+            </Row>
+          </Col>
 
-        <Row className='justify-content-md-center'>
-          <DisplayFilteredTanks filteredTanks = {filteredTanks} onAddTank = {onAddTank} />
         </Row>
       </Container>
     </>
@@ -79,7 +86,7 @@ export function Filter( {allTanks, onAddTank} ) {
 function SearchBar({searchResult, onChangeSearch}) {
   return (
     <>
-      <Col className='col col-lg-2'>
+      <Col>
         <Form onSubmit={(e) => {e.preventDefault()}}>
           <input 
             type="text" 
@@ -96,17 +103,17 @@ function SearchBar({searchResult, onChangeSearch}) {
 function TierSelection({onChangeTier}) {
   return (
     <>
-      <ButtonGroup className="me-2" aria-label="First group">
-        <Button onClick={() => onChangeTier(1)}>1</Button>
-        <Button onClick={() => onChangeTier(2)}>2</Button>
-        <Button onClick={() => onChangeTier(3)}>3</Button>
-        <Button onClick={() => onChangeTier(4)}>4</Button>
-        <Button onClick={() => onChangeTier(5)}>5</Button>
-        <Button onClick={() => onChangeTier(6)}>6</Button>
-        <Button onClick={() => onChangeTier(7)}>7</Button>
-        <Button onClick={() => onChangeTier(8)}>8</Button>
-        <Button onClick={() => onChangeTier(9)}>9</Button>
-        <Button onClick={() => onChangeTier(10)}>10</Button>
+      <ButtonGroup className="me-2">
+        <button className='tier-button' onClick={() => onChangeTier(1)}>1</button>
+        <button className='tier-button' onClick={() => onChangeTier(2)}>2</button>
+        <button className='tier-button' onClick={() => onChangeTier(3)}>3</button>
+        <button className='tier-button' onClick={() => onChangeTier(4)}>4</button>
+        <button className='tier-button' onClick={() => onChangeTier(5)}>5</button>
+        <button className='tier-button' onClick={() => onChangeTier(6)}>6</button>
+        <button className='tier-button' onClick={() => onChangeTier(7)}>7</button>
+        <button className='tier-button' onClick={() => onChangeTier(8)}>8</button>
+        <button className='tier-button' onClick={() => onChangeTier(9)}>9</button>
+        <button className='tier-button' onClick={() => onChangeTier(10)}>10</button>
       </ButtonGroup>
     </>
   );
@@ -115,21 +122,21 @@ function TierSelection({onChangeTier}) {
 function TypeSelection({onChangeType}) {
   return (
     <>
-      <ButtonGroup className="me-2" aria-label="First group">
-        <Button onClick={() => onChangeType('lightTank')}>Light</Button>
-        <Button onClick={() => onChangeType('mediumTank')}>Medium</Button>
-        <Button onClick={() => onChangeType('heavyTank')}>Heavy</Button>
-        <Button onClick={() => onChangeType('AT-SPG')}>TD</Button>
+      <ButtonGroup className="me-2">
+        <button className='type-button' onClick={() => onChangeType('lightTank')}>Light</button>
+        <button className='type-button' onClick={() => onChangeType('mediumTank')}>Medium</button>
+        <button className='type-button' onClick={() => onChangeType('heavyTank')}>Heavy</button>
+        <button className='type-button' onClick={() => onChangeType('AT-SPG')}>TD</button>
       </ButtonGroup>
     </>
   );
 }
-  
+
 function DisplayFilteredTanks({filteredTanks, onAddTank}) {
   return (
     <>
       {filteredTanks.map((tank) => (
-        <Col key={tank.tank_id}>
+        <div key={tank.tank_id}>
           <Card style={{ width: '12rem'}} className="text-center">
             <cardBody>
               <CardImg src = {tank.image_preview} alt = "tank image"/>
@@ -137,7 +144,7 @@ function DisplayFilteredTanks({filteredTanks, onAddTank}) {
               <Button variant="primary" onClick={(e) => onAddTank(tank)}>Select</Button>
             </cardBody>
           </Card>
-        </Col>
+        </div>
       ))}
     </>
   );

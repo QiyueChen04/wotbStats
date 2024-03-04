@@ -1,0 +1,27 @@
+.tier-button {
+  background-color: transparent;
+  color: #78866B;
+  padding: 5px 10px;
+  border: 2px solid #78866B;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.tier-button:hover {
+  background-color: #78866B;
+  color: #fff;
+}
+
+.type-button {
+    background-color: transparent;
+    color: #78866B;
+    padding: 5px 10px;
+    border: 2px solid #78866B;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .type-button:hover {
+    background-color: #78866B;
+    color: #fff;
+  }

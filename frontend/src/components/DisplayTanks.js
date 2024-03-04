@@ -6,8 +6,8 @@ import Table from 'react-bootstrap/Table'
 
 export function DisplayTanks({chosenTanks, onRemoveTank}) {
   return(
-    <Container className='container text-center'>
-      <Table striped border hover>
+    <>
+    <Table striped border hover>
         <thead>
           <tr>
             <td> Tank </td>
@@ -42,6 +42,6 @@ export function DisplayTanks({chosenTanks, onRemoveTank}) {
           )}
         </tbody>
       </Table>
-    </Container>
+    </>
   );
 }

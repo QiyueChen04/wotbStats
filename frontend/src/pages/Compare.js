@@ -7,6 +7,7 @@ import { DisplayTanks } from '../components/DisplayTanks';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export default function Compare() {
   const [allTanks, setAllTanks] = useState([]);
@@ -53,8 +54,13 @@ export default function Compare() {
         <Row>
           <Header/>
         </Row>
+        <br/>
         <Row>
-          <Filter allTanks = {allTanks} onAddTank={handleAddTank} />
+          <Col>
+            <Filter allTanks = {allTanks} onAddTank={handleAddTank} />
+          </Col>
+          <Col>
+          </Col>
         </Row>
         <Row>
           <DisplayTanks chosenTanks = {chosenTanks} onRemoveTank={handleRemoveTank}/>
