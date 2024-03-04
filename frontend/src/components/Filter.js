@@ -20,7 +20,7 @@ export function Filter( {allTanks, onAddTank} ) {
   const [filteredTanks, setFilteredTanks] = useState([]);
 
   function filter() {
-    if(searchResult != '') {
+    if(searchResult !== '') {
       let filteredResult = allTanks.filter((tank) => tank.name.toLowerCase().match(searchResult));
       setFilteredTanks(filteredResult);
     }
