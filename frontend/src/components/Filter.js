@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 
 import '../css/Filter.css';
 
@@ -10,8 +10,13 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup'
 export function Filter( {allTanks, onAddTank} ) {
   const [searchResult, setSearchResult] = useState('');
   const [tier, setTier] = useState(10);
-  const [type, setType] = useState('mediumTank');
+  const [type, setType] = useState('heavyTank');
   const [filteredTanks, setFilteredTanks] = useState([]);
+
+  useEffect(() => {
+    let filteredResult = allTanks.filter((tank) => tank.tier === (tier)).filter((tank) => String(tank.type) === type);
+    setFilteredTanks(filteredResult);
+  }, [])
 
   function filter() {
     if(searchResult !== '') {
