@@ -7,7 +7,7 @@ class Suspension(models.Model):
 
     def __str__(self):
         return self.module_id
-    
+ 
 
 class Engine(models.Model):
     module_id = models.IntegerField(primary_key = True)

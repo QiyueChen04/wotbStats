@@ -1,3 +1,22 @@
+.filter-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.filter-elements-container {
+  float: left;
+  width: 30%;
+
+  display: flex;
+  flex-direction: column;
+  flex-direction: center;
+  align-items: center;
+
+  gap:5px
+}
+
 .tier-button {
   background-color: transparent;
   color: #78866B;
@@ -13,15 +32,49 @@
 }
 
 .type-button {
-    background-color: transparent;
-    color: #78866B;
-    padding: 5px 10px;
-    border: 2px solid #78866B;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+  background-color: transparent;
+  color: #78866B;
+  padding: 5px 10px;
+  border: 2px solid #78866B;
+  border-radius: 5px;
+  cursor: pointer;
+}
   
-  .type-button:hover {
-    background-color: #78866B;
-    color: #fff;
-  }
+.type-button:hover {
+  background-color: #78866B;
+  color: #fff;
+}
+
+.card-container {
+  float: right; 
+  width: 100%;
+  display: flex; 
+  justify-content: left; 
+  flex-wrap: wrap; 
+  gap: 20px; 
+}
+
+.card {
+  width: 110px; 
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  overflow: hidden; 
+
+  justify-content: center;
+}
+
+.card img {
+  width: 100%; 
+  height: auto; 
+}
+
+.card-content {
+  padding: 5px;
+  text-align: center;
+}
+
+.card-content p {
+  margin-bottom: 0;
+  font-size: 14px;
+}

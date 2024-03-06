@@ -3,17 +3,9 @@ import {useState} from 'react';
 
 import '../css/Filter.css';
 
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form'
 
-import Card from 'react-bootstrap/Card'
-import CardImg from 'react-bootstrap/CardImg'
-import CardBody from 'react-bootstrap/CardBody' 
-
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
-import Button from 'react-bootstrap/Button'
 
 export function Filter( {allTanks, onAddTank} ) {
   const [searchResult, setSearchResult] = useState('');
@@ -50,52 +42,32 @@ export function Filter( {allTanks, onAddTank} ) {
   }
 
   return (
-    <>
-      <Container className='container text-center'>
-        <Row>
-          <Col>
-            <Row className='justify-content-md-center'>
-              <SearchBar searchResult = {searchResult} onChangeSearch = {handleChangeSearch} />
-            </Row>
-
-            <br />
-
-            <Row className='justify-content-md-center'>
-              <TierSelection onChangeTier = {handleChangeTier} />
-            </Row>
-
-            <br />
-
-            <Row className='justify-content-md-center'>
-              <TypeSelection onChangeType = {handleChangeType} />
-            </Row>
-          </Col>
-
-          <Col>
-            <Row>
-              <DisplayFilteredTanks filteredTanks={filteredTanks} onAddTank={onAddTank} />
-            </Row>
-          </Col>
-
-        </Row>
-      </Container>
-    </>
+    <div className='filter-row'>
+      <div className='filter-elements-container'>
+        <SearchBar searchResult = {searchResult} onChangeSearch = {handleChangeSearch} />
+        <br/>
+        <TierSelection onChangeTier = {handleChangeTier} />
+        <br/>
+        <TypeSelection onChangeType = {handleChangeType} />
+      </div>
+      <div className='card-container'>
+        <DisplayFilteredTanks filteredTanks={filteredTanks} onAddTank={onAddTank} />
+      </div>
+    </div>
   );
 }
-  
+
 function SearchBar({searchResult, onChangeSearch}) {
   return (
     <>
-      <Col>
-        <Form onSubmit={(e) => {e.preventDefault()}}>
-          <input 
-            type="text" 
-            value={searchResult} 
-            placeholder="Search..." 
-            onChange={(e) => onChangeSearch(e.target.value)} 
-          />
-        </Form>
-      </Col>
+      <Form onSubmit={(e) => {e.preventDefault()}}>
+        <input 
+          type="text" 
+          value={searchResult} 
+          placeholder="Search..." 
+          onChange={(e) => onChangeSearch(e.target.value)} 
+        />
+      </Form>
     </>
   );
 }
@@ -134,18 +106,15 @@ function TypeSelection({onChangeType}) {
 
 function DisplayFilteredTanks({filteredTanks, onAddTank}) {
   return (
-    <>
+    <div className='card-container'>
       {filteredTanks.map((tank) => (
-        <div key={tank.tank_id}>
-          <Card style={{ width: '12rem'}} className="text-center">
-            <cardBody>
-              <CardImg src = {tank.image_preview} alt = "tank image"/>
-              <CardBody>{tank.name}</CardBody>
-              <Button variant="primary" onClick={(e) => onAddTank(tank)}>Select</Button>
-            </cardBody>
-          </Card>
+        <div className='card' onClick={(e) => onAddTank(tank)}>
+          <img src = {tank.image_preview} alt="tank image" />
+          <div class="card-content">
+            <p>{tank.name}</p>
+          </div>
         </div>
       ))}
-    </>
+    </div>
   );
 }

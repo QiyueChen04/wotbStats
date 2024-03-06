@@ -56,11 +56,7 @@ export default function Compare() {
         </Row>
         <br/>
         <Row>
-          <Col>
-            <Filter allTanks = {allTanks} onAddTank={handleAddTank} />
-          </Col>
-          <Col>
-          </Col>
+          <Filter allTanks = {allTanks} onAddTank={handleAddTank} />
         </Row>
         <Row>
           <DisplayTanks chosenTanks = {chosenTanks} onRemoveTank={handleRemoveTank}/>
