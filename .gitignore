@@ -1,2 +1,8 @@
 .DS_Store
-.mySql
+
+db.sqlite3
+
+/mySql
+
+#ignore wotbStats settings.py
+./wotbStats/settings.py
