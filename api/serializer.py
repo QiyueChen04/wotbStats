@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from extApi.models import Tank
+from .models import Tanks
 
 class TankSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Tank
+        model = Tanks
         fields = '__all__'
