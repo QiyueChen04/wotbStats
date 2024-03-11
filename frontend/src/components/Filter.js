@@ -20,7 +20,7 @@ export function Filter( {allTanks, onAddTank} ) {
 
   function filter() {
     if(searchResult !== '') {
-      let filteredResult = allTanks.filter((tank) => tank.name.toLowerCase().match(searchResult));
+      let filteredResult = allTanks.filter((tank) => tank.tank_name.toLowerCase().match(searchResult));
       setFilteredTanks(filteredResult);
     }
     else {
