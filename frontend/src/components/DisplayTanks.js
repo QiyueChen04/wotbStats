@@ -1,12 +1,14 @@
 import React from 'react';
 
-import Container from 'react-bootstrap/Container';
+import Table from 'react-bootstrap/Table';
 import Image from 'react-bootstrap/Image'
-import Table from 'react-bootstrap/Table'
+import Container from 'react-bootstrap/Container'
+
+// import '../css/DisplayTank.css';
 
 export function DisplayTanks({chosenTanks, onRemoveTank}) {
   return(
-    <>
+    <Container>
     <Table striped border hover>
         <thead>
           <tr>
@@ -26,7 +28,8 @@ export function DisplayTanks({chosenTanks, onRemoveTank}) {
           {chosenTanks.map((tank) =>
             <tr>
               <td>
-                <Image src={tank.image_preview} width={80} height={60} onClick={() => onRemoveTank(tank)}/>
+                <Image src={tank.image_preview} width={80} height={60} fliud onClick={() => onRemoveTank(tank)}/>
+                <p> {tank.tank_name} </p>
               </td>
   
               <td>{tank.caliber}</td>
@@ -42,6 +45,6 @@ export function DisplayTanks({chosenTanks, onRemoveTank}) {
           )}
         </tbody>
       </Table>
-    </>
+    </Container>
   );
 }
