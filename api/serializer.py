@@ -4,4 +4,4 @@ from .models import Tanks
 class TankSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tanks
-        fields = '__all__'
+        fields = "tank_id", "tank_name", "image_preview", "is_premium", "tier", "tank_type"

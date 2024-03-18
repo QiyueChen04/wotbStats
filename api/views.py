@@ -6,6 +6,6 @@ from .serializer import TankSerializer
 
 @api_view(['GET'])
 def getAllTanks(request):
-    tanks = Tanks.objects.all()
+    tanks = Tanks.objects.values("tank_id", "tank_name", "image_preview", "is_premium", "tier", "tank_type")
     serializer = TankSerializer(tanks, many=True)
     return Response(serializer.data)
