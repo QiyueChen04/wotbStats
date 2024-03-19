@@ -3,4 +3,5 @@ from . import views
 
 urlpatterns = [
     path('allTanks/', views.getAllTanks),
+    path('tankInfo/', views.getTankInfo),
 ]

@@ -16,7 +16,7 @@ export function Filter( {allTanks, onAddTank} ) {
   useEffect(() => {
     let filteredResult = allTanks.filter((tank) => tank.tier === (tier)).filter((tank) => String(tank.tank_type) === type);
     setFilteredTanks(filteredResult);
-  }, [])
+  }, [allTanks])
 
   function filter() {
     if(searchResult !== '') {
@@ -95,7 +95,7 @@ function TierSelection({onChangeTier}) {
     </>
   );
 }
-  
+
 function TypeSelection({onChangeType}) {
   return (
     <>
@@ -113,7 +113,7 @@ function DisplayFilteredTanks({filteredTanks, onAddTank}) {
   return (
     <div className='card-container'>
       {filteredTanks.map((tank) => (
-        <div className='card' onClick={(e) => onAddTank(tank)}>
+        <div className='card' onClick={(e) => onAddTank(tank.tank_id)}>
           <img src = {tank.image_preview} alt="tank image" />
           <div class="card-content">
             <p>{tank.tank_name}</p>

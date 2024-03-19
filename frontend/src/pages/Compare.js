@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import {useState, useEffect} from 'react';
 
 import { Header } from '../components/Header';
@@ -15,9 +16,39 @@ export default function Compare() {
 
   const [chosenTanks, setChosenTanks] = useState([]);
 
-  function handleAddTank(newTank) {
-    setChosenTanks([...chosenTanks, newTank]);
+  async function handleAddTank(tank_id) {
+      try {
+          const url = 'http://127.0.0.1:8000/api/tankInfo/'; // Adjust the URL as needed
+          const response = await axios.get(url, {
+              params: {
+                  tank_id: tank_id
+              }
+          });
+          console.log(response.data[0])
+          setChosenTanks([...chosenTanks, response.data[0]]);
+      } catch (error) {
+          console.error('Error fetching data:', error);
+      }
   }
+  // const fetchTankData = async (tank_name) => {
+  //   try {
+  //     // Make API call to your Django backend
+  //     const response = await axios.get('/api/endpoint', {
+  //       params: {
+  //         arg1: arg1,
+  //         arg2: arg2
+  //       }
+  //     });
+
+  //     // Set data received from the backend
+  //     setData(response.data);
+  //   } catch (error) {
+  //     console.error('Error fetching data:', error);
+  //   }
+  // };
+  // function handleAddTank(newTank) {
+  //   setChosenTanks([...chosenTanks, newTank]);
+  // }
 
   function handleRemoveTank(removeTank) {
     setChosenTanks(
@@ -39,7 +70,6 @@ export default function Compare() {
         }
       )
   }, [])
-
   if (error) {
     return <div>Error: {error.message}</div>;
   } 
