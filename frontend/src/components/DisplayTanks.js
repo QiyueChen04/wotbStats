@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import Table from 'react-bootstrap/Table';
@@ -13,6 +13,13 @@ export function DisplayTanks({chosenTanks, onRemoveTank}) {
   const [engines, setEngines] = useState([]);
   const [suspensions, setSuspensions] = useState([]);
   const [turrets, setTurrets] = useState([]);
+
+  // useEffect(() => {
+  //   addGuns(chosenTanks[0].tank_id);
+  //   addEngines(chosenTanks[0].tank_id);
+  //   addSuspensions(chosenTanks[0].tank_id);
+  //   addTurrets(chosenTanks[0].tank_id);
+  // }, [chosenTanks])
 
   async function addGuns(tank_id) {
       try {
