@@ -1,9 +1,5 @@
 from rest_framework import serializers
 from .models import Tanks
-from .models import TankGuns
-from .models import TankTurrets
-from .models import TankEngines
-from .models import TankSuspensions
 from .models import Guns
 from .models import Turrets
 from .models import Engines
@@ -14,7 +10,6 @@ class AllTanksSerializer(serializers.ModelSerializer):
         model = Tanks
         fields = "tank_id", "tank_name", "image_preview", "is_premium", "tier", "tank_type"
 
-
 class TankSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tanks
@@ -23,4 +18,19 @@ class TankSerializer(serializers.ModelSerializer):
 class TankGunsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Guns
+        fields = '__all__'
+
+class TankEnginesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Engines
+        fields = '__all__'
+
+class TankSuspensionsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Suspensions
+        fields = '__all__'
+
+class TankTurretsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Turrets
         fields = '__all__'
