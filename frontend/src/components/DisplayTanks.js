@@ -10,8 +10,11 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 
 export function DisplayTanks({chosenTanks, onRemoveTank}) {
   const [guns, setGuns] = useState([]);
+  const [engines, setEngines] = useState([]);
+  const [suspensions, setSuspensions] = useState([]);
+  const [turrets, setTurrets] = useState([]);
 
-  async function addGun(tank_id) {
+  async function addGuns(tank_id) {
       try {
           const url = 'http://127.0.0.1:8000/api/getTankGuns/'; 
           const response = await axios.get(url, {
@@ -20,11 +23,65 @@ export function DisplayTanks({chosenTanks, onRemoveTank}) {
               }
           });
           console.log(response.data);
-          setGuns([...guns, response.data[0]]);
+          for(let idx = 0; idx < response.data.length; idx++) {
+            setGuns([...guns, response.data[idx]]);
+          }
       } catch (error) {
           console.error('Error fetching data:', error);
       }
   }
+
+  async function addEngines(tank_id) {
+      try {
+          const url = 'http://127.0.0.1:8000/api/getTankEngines/'; 
+          const response = await axios.get(url, {
+              params: {
+                  tank_id: tank_id
+              }
+          });
+          console.log(response.data);
+          for(let idx = 0; idx < response.data.length; idx++) {
+            setEngines([...engines, response.data[idx]]);
+          }
+      } catch (error) {
+          console.error('Error fetching data:', error);
+      }
+  }
+
+  async function addSuspensions(tank_id) {
+      try {
+          const url = 'http://127.0.0.1:8000/api/getTankSuspensions/'; 
+          const response = await axios.get(url, {
+              params: {
+                  tank_id: tank_id
+              }
+          });
+          console.log(response.data);
+          for(let idx = 0; idx < response.data.length; idx++) {
+            setSuspensions([...suspensions, response.data[idx]]);
+          }
+      } catch (error) {
+          console.error('Error fetching data:', error);
+      }
+  }
+
+  async function addTurrets(tank_id) {
+      try {
+          const url = 'http://127.0.0.1:8000/api/getTankTurrets/'; 
+          const response = await axios.get(url, {
+              params: {
+                  tank_id: tank_id
+              }
+          });
+          console.log(response.data);
+          for(let idx = 0; idx < response.data.length; idx++) {
+            setTurrets([...turrets, response.data[idx]]);
+          }
+      } catch (error) {
+          console.error('Error fetching data:', error);
+      }
+  }
+
 
   return(
     <Container>
@@ -56,7 +113,10 @@ export function DisplayTanks({chosenTanks, onRemoveTank}) {
                 <Dropdown>
                   <Dropdown.Toggle variant="secondary"> Gun </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => addGun(tank.tank_id)}> Action </Dropdown.Item>
+                    <Dropdown.Item onClick={() => {addGuns(tank.tank_id); 
+                                                  addEngines(tank.tank_id); 
+                                                  addSuspensions(tank.tank_id); 
+                                                  addTurrets(tank.tank_id)} }> Action </Dropdown.Item>
                     <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
                     <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
                     <Dropdown.Divider />
