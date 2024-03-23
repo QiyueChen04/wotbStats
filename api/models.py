@@ -37,6 +37,124 @@ class Tanks(models.Model):
         managed = False
         db_table = 'tanks'
 
+#__________________________________________________________________________________________
+class Guns(models.Model):
+    module_id = models.IntegerField(primary_key=True)
+    type1 = models.CharField(max_length=20, blank=True, null=True)
+    pen1 = models.SmallIntegerField(blank=True, null=True)
+    dmg1 = models.SmallIntegerField(blank=True, null=True)
+    type2 = models.CharField(max_length=20, blank=True, null=True)
+    pen2 = models.SmallIntegerField(blank=True, null=True)
+    dmg2 = models.SmallIntegerField(blank=True, null=True)
+    type3 = models.CharField(max_length=20, blank=True, null=True)
+    pen3 = models.SmallIntegerField(blank=True, null=True)
+    dmg3 = models.SmallIntegerField(blank=True, null=True)
+    dispersion = models.FloatField(blank=True, null=True)
+    aim_time = models.FloatField(blank=True, null=True)
+
+    tank_id = models.ManyToManyField(
+        Tanks,
+        through='TankGuns',
+        through_fields=('module', 'tank')
+    )
+
+    class Meta:
+        managed = False
+        db_table = 'guns'
+
+class TankGuns(models.Model):
+    pair_id = models.IntegerField(primary_key = True)
+    tank = models.ForeignKey(Tanks, models.DO_NOTHING)
+    module = models.ForeignKey(Guns, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'tankguns'
+
+#__________________________________________________________________________________________
+class Engines(models.Model):
+    module_id = models.IntegerField(primary_key=True)
+    engine_power = models.SmallIntegerField(blank=True, null=True)
+    fire_chance = models.FloatField(blank=True, null=True)
+    weight = models.IntegerField(blank=True, null=True)
+
+    tank_id = models.ManyToManyField(
+        Tanks,
+        through='TankEngines',
+        through_fields=('module', 'tank')
+    )
+
+    class Meta:
+        managed = False
+        db_table = 'engines'
+
+class TankEngines(models.Model):
+    pair_id = models.IntegerField(primary_key = True)
+    tank = models.ForeignKey(Tanks, models.DO_NOTHING)  
+    module = models.ForeignKey(Engines, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'tankengines'
+#__________________________________________________________________________________________
+class Suspensions(models.Model):
+    module_id = models.IntegerField(primary_key=True)
+    traverse_speed = models.SmallIntegerField(blank=True, null=True)
+    weight = models.SmallIntegerField(blank=True, null=True)
+
+    tank_id = models.ManyToManyField(
+        Tanks,
+        through='TankSuspensions',
+        through_fields=('module', 'tank')
+    )
+
+    class Meta:
+        managed = False
+        db_table = 'suspensions'
+
+
+class TankSuspensions(models.Model):
+    pair_id = models.IntegerField(primary_key = True)
+    tank = models.ForeignKey(Tanks, models.DO_NOTHING)  
+    module = models.ForeignKey(Suspensions, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'tanksuspensions'
+
+#__________________________________________________________________________________________
+
+class Turrets(models.Model):
+    module_id = models.IntegerField(primary_key=True)
+    view_range = models.SmallIntegerField(blank=True, null=True)
+    front = models.SmallIntegerField(blank=True, null=True)
+    sides = models.SmallIntegerField(blank=True, null=True)
+    rear = models.SmallIntegerField(blank=True, null=True)
+    hp = models.SmallIntegerField(blank=True, null=True)
+    traverse_right_arc = models.SmallIntegerField(blank=True, null=True)
+    traverse_left_arc = models.SmallIntegerField(blank=True, null=True)
+
+    tank_id = models.ManyToManyField(
+        Tanks,
+        through='TankTurrets',
+        through_fields=('module', 'tank')
+    )
+
+    class Meta:
+        managed = False
+        db_table = 'turrets'
+
+class TankTurrets(models.Model):
+    pair_id = models.IntegerField(primary_key = True)
+    tank = models.ForeignKey(Tanks, models.DO_NOTHING)  
+    module = models.ForeignKey(Turrets, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'tankturrets'
+
+#__________________________________________________________________________________________
+
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
 
@@ -149,239 +267,3 @@ class DjangoSession(models.Model):
     class Meta:
         managed = False
         db_table = 'django_session'
-
-
-class Engines(models.Model):
-    module_id = models.IntegerField(primary_key=True)
-    engine_power = models.SmallIntegerField(blank=True, null=True)
-    fire_chance = models.FloatField(blank=True, null=True)
-    weight = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'engines'
-
-
-class ExtapiEngine(models.Model):
-    module_id = models.IntegerField(primary_key=True)
-    engine_power = models.IntegerField(blank=True, null=True)
-    fire_chance = models.FloatField(blank=True, null=True)
-    weight = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'extApi_engine'
-
-
-class ExtapiGun(models.Model):
-    module_id = models.IntegerField(primary_key=True)
-    type1 = models.CharField(max_length=255, blank=True, null=True)
-    pen1 = models.IntegerField(blank=True, null=True)
-    dmg1 = models.IntegerField(blank=True, null=True)
-    type2 = models.CharField(max_length=255, blank=True, null=True)
-    pen2 = models.IntegerField(blank=True, null=True)
-    dmg2 = models.IntegerField(blank=True, null=True)
-    type3 = models.CharField(max_length=255, blank=True, null=True)
-    pen3 = models.IntegerField(blank=True, null=True)
-    dmg3 = models.IntegerField(blank=True, null=True)
-    dispersion = models.FloatField(blank=True, null=True)
-    aim_time = models.FloatField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'extApi_gun'
-
-
-class ExtapiSuspension(models.Model):
-    module_id = models.IntegerField(primary_key=True)
-    traverse_speed = models.IntegerField(blank=True, null=True)
-    weight = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'extApi_suspension'
-
-
-class ExtapiTank(models.Model):
-    tank_id = models.IntegerField(primary_key=True)
-    name = models.CharField(max_length=255, blank=True, null=True)
-    image_preview = models.CharField(max_length=255, blank=True, null=True)
-    image_normal = models.CharField(max_length=255, blank=True, null=True)
-    is_premium = models.IntegerField(blank=True, null=True)
-    nation = models.CharField(max_length=255, blank=True, null=True)
-    tier = models.IntegerField(blank=True, null=True)
-    type = models.CharField(max_length=255, blank=True, null=True)
-    caliber = models.IntegerField(blank=True, null=True)
-    clip_capacity = models.IntegerField(blank=True, null=True)
-    clip_reload_time = models.FloatField(blank=True, null=True)
-    fire_rate = models.FloatField(blank=True, null=True)
-    front = models.IntegerField(blank=True, null=True)
-    gun_traverse_speed = models.FloatField(blank=True, null=True)
-    hp = models.IntegerField(blank=True, null=True)
-    hull_hp = models.IntegerField(blank=True, null=True)
-    move_down_arc = models.IntegerField(blank=True, null=True)
-    move_up_arc = models.IntegerField(blank=True, null=True)
-    rear = models.IntegerField(blank=True, null=True)
-    reload_time = models.FloatField(blank=True, null=True)
-    sides = models.IntegerField(blank=True, null=True)
-    speed_backward = models.IntegerField(blank=True, null=True)
-    speed_forward = models.IntegerField(blank=True, null=True)
-    turret_traverse_speed = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'extApi_tank'
-
-
-class ExtapiTankEngines(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    tank = models.ForeignKey(ExtapiTank, models.DO_NOTHING)
-    engine = models.ForeignKey(ExtapiEngine, models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'extApi_tank_engines'
-        unique_together = (('tank', 'engine'),)
-
-
-class ExtapiTankGuns(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    tank = models.ForeignKey(ExtapiTank, models.DO_NOTHING)
-    gun = models.ForeignKey(ExtapiGun, models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'extApi_tank_guns'
-        unique_together = (('tank', 'gun'),)
-
-
-class ExtapiTankSuspensions(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    tank = models.ForeignKey(ExtapiTank, models.DO_NOTHING)
-    suspension = models.ForeignKey(ExtapiSuspension, models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'extApi_tank_suspensions'
-        unique_together = (('tank', 'suspension'),)
-
-
-class ExtapiTankTurrets(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    tank = models.ForeignKey(ExtapiTank, models.DO_NOTHING)
-    turret = models.ForeignKey('ExtapiTurret', models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'extApi_tank_turrets'
-        unique_together = (('tank', 'turret'),)
-
-
-class ExtapiTurret(models.Model):
-    module_id = models.IntegerField(primary_key=True)
-    view_range = models.IntegerField(blank=True, null=True)
-    front = models.IntegerField(blank=True, null=True)
-    sides = models.IntegerField(blank=True, null=True)
-    rear = models.IntegerField(blank=True, null=True)
-    hp = models.IntegerField(blank=True, null=True)
-    traverse_right_arc = models.IntegerField(blank=True, null=True)
-    traverse_left_arc = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'extApi_turret'
-
-
-class Guns(models.Model):
-    module_id = models.IntegerField(primary_key=True)
-    type1 = models.CharField(max_length=20, blank=True, null=True)
-    pen1 = models.SmallIntegerField(blank=True, null=True)
-    dmg1 = models.SmallIntegerField(blank=True, null=True)
-    type2 = models.CharField(max_length=20, blank=True, null=True)
-    pen2 = models.SmallIntegerField(blank=True, null=True)
-    dmg2 = models.SmallIntegerField(blank=True, null=True)
-    type3 = models.CharField(max_length=20, blank=True, null=True)
-    pen3 = models.SmallIntegerField(blank=True, null=True)
-    dmg3 = models.SmallIntegerField(blank=True, null=True)
-    dispersion = models.FloatField(blank=True, null=True)
-    aim_time = models.FloatField(blank=True, null=True)
-
-    tank_id = models.ManyToManyField(
-        Tanks,
-        through='TankGuns',
-        through_fields=('module', 'tank')
-    )
-
-    class Meta:
-        managed = False
-        db_table = 'guns'
-
-class TankGuns(models.Model):
-    pair_id = models.IntegerField(primary_key = True)
-    tank = models.ForeignKey(Tanks, models.DO_NOTHING)
-    module = models.ForeignKey(Guns, models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'tankguns'
-
-# class Tankguns(models.Model):
-#     tank = models.ForeignKey(Tanks, models.DO_NOTHING)  # The composite primary key (tank_id, module_id) found, that is not supported. The first column is selected.
-#     module = models.ForeignKey(Guns, models.DO_NOTHING)
-
-#     class Meta:
-#         managed = False
-#         db_table = 'tankguns'
-
-class Suspensions(models.Model):
-    module_id = models.IntegerField(primary_key=True)
-    traverse_speed = models.SmallIntegerField(blank=True, null=True)
-    weight = models.SmallIntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'suspensions'
-
-
-class TankEngines(models.Model):
-    tank = models.OneToOneField('Tanks', models.DO_NOTHING, primary_key=True)  # The composite primary key (tank_id, module_id) found, that is not supported. The first column is selected.
-    module = models.ForeignKey(Engines, models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'tank_engines'
-        unique_together = (('tank', 'module'),)
-
-class TankSuspensions(models.Model):
-    tank = models.OneToOneField('Tanks', models.DO_NOTHING, primary_key=True)  # The composite primary key (tank_id, module_id) found, that is not supported. The first column is selected.
-    module = models.ForeignKey(Suspensions, models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'tank_suspensions'
-        unique_together = (('tank', 'module'),)
-
-
-class TankTurrets(models.Model):
-    tank = models.OneToOneField('Tanks', models.DO_NOTHING, primary_key=True)  # The composite primary key (tank_id, module_id) found, that is not supported. The first column is selected.
-    module = models.ForeignKey('Turrets', models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'tank_turrets'
-        unique_together = (('tank', 'module'),)
-
-
-class Turrets(models.Model):
-    module_id = models.IntegerField(primary_key=True)
-    view_range = models.SmallIntegerField(blank=True, null=True)
-    front = models.SmallIntegerField(blank=True, null=True)
-    sides = models.SmallIntegerField(blank=True, null=True)
-    rear = models.SmallIntegerField(blank=True, null=True)
-    hp = models.SmallIntegerField(blank=True, null=True)
-    traverse_right_arc = models.SmallIntegerField(blank=True, null=True)
-    traverse_left_arc = models.SmallIntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'turrets'
