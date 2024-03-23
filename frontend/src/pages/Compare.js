@@ -16,6 +16,7 @@ export default function Compare() {
   const [chosenTanks, setChosenTanks] = useState([]);
 
   async function handleAddTank(tank_id) {
+    if(!chosenTanks.some(tank => tank.tank_id === tank_id)) {
       try {
           const url = 'http://127.0.0.1:8000/api/getTankInfo/'; 
           const response = await axios.get(url, {
@@ -27,6 +28,7 @@ export default function Compare() {
       } catch (error) {
           console.error('Error fetching data:', error);
       }
+    }
   }
 
   function handleRemoveTank(removeTank) {
