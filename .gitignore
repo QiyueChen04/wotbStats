@@ -1,9 +1,9 @@
 .DS_Store
 
 db.sqlite3
+extApi
+manage.py
 
 /mySql
 
-#ignore wotbStats settings.py
 wotbStats/settings.py
-extApi
