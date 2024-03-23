@@ -113,9 +113,9 @@ function DisplayFilteredTanks({filteredTanks, onAddTank}) {
   return (
     <div className='card-container'>
       {filteredTanks.map((tank) => (
-        <div className='card' onClick={(e) => onAddTank(tank.tank_id)}>
+        <div className='card' key={tank.tank_id} onClick={(e) => onAddTank(tank.tank_id)}>
           <img src = {tank.image_preview} alt="tank img" />
-          <div class="card-content">
+          <div className="card-content">
             <p>{tank.tank_name}</p>
           </div>
         </div>

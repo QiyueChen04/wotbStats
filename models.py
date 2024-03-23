@@ -7,35 +7,6 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
-class Tanks(models.Model):
-    tank_id = models.IntegerField(primary_key=True)
-    tank_name = models.CharField(max_length=100, blank=True, null=True)
-    image_preview = models.CharField(max_length=200, blank=True, null=True)
-    image_normal = models.CharField(max_length=200, blank=True, null=True)
-    nation = models.CharField(max_length=20, blank=True, null=True)
-    is_premium = models.CharField(max_length=1, blank=True, null=True)
-    tier = models.SmallIntegerField(blank=True, null=True)
-    tank_type = models.CharField(max_length=20, blank=True, null=True)
-    front = models.SmallIntegerField(blank=True, null=True)
-    sides = models.SmallIntegerField(blank=True, null=True)
-    rear = models.SmallIntegerField(blank=True, null=True)
-    speed_forward = models.SmallIntegerField(blank=True, null=True)
-    speed_backward = models.SmallIntegerField(blank=True, null=True)
-    hp = models.SmallIntegerField(blank=True, null=True)
-    move_down_arc = models.SmallIntegerField(blank=True, null=True)
-    move_up_arc = models.SmallIntegerField(blank=True, null=True)
-    caliber = models.SmallIntegerField(blank=True, null=True)
-    fire_rate = models.FloatField(blank=True, null=True)
-    reload_time = models.FloatField(blank=True, null=True)
-    clip_capacity = models.SmallIntegerField(blank=True, null=True)
-    clip_reload_time = models.FloatField(blank=True, null=True)
-    gun_traverse_speed = models.FloatField(blank=True, null=True)
-    turret_traverse_speed = models.SmallIntegerField(blank=True, null=True)
-    hull_hp = models.SmallIntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'tanks'
 
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
@@ -306,32 +277,10 @@ class Guns(models.Model):
     dispersion = models.FloatField(blank=True, null=True)
     aim_time = models.FloatField(blank=True, null=True)
 
-    tank_id = models.ManyToManyField(
-        Tanks,
-        through='TankGuns',
-        through_fields=('module', 'tank')
-    )
-
     class Meta:
         managed = False
         db_table = 'guns'
 
-class TankGuns(models.Model):
-    pair_id = models.IntegerField(primary_key = True)
-    tank = models.ForeignKey(Tanks, models.DO_NOTHING)
-    module = models.ForeignKey(Guns, models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'tankguns'
-
-# class Tankguns(models.Model):
-#     tank = models.ForeignKey(Tanks, models.DO_NOTHING)  # The composite primary key (tank_id, module_id) found, that is not supported. The first column is selected.
-#     module = models.ForeignKey(Guns, models.DO_NOTHING)
-
-#     class Meta:
-#         managed = False
-#         db_table = 'tankguns'
 
 class Suspensions(models.Model):
     module_id = models.IntegerField(primary_key=True)
@@ -352,6 +301,16 @@ class TankEngines(models.Model):
         db_table = 'tank_engines'
         unique_together = (('tank', 'module'),)
 
+
+class TankGunsCopy(models.Model):
+    tank_id = models.IntegerField()
+    module_id = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'tank_guns_copy'
+
+
 class TankSuspensions(models.Model):
     tank = models.OneToOneField('Tanks', models.DO_NOTHING, primary_key=True)  # The composite primary key (tank_id, module_id) found, that is not supported. The first column is selected.
     module = models.ForeignKey(Suspensions, models.DO_NOTHING)
@@ -370,6 +329,47 @@ class TankTurrets(models.Model):
         managed = False
         db_table = 'tank_turrets'
         unique_together = (('tank', 'module'),)
+
+
+class Tankguns(models.Model):
+    tank = models.OneToOneField('Tanks', models.DO_NOTHING, primary_key=True)  # The composite primary key (tank_id, module_id) found, that is not supported. The first column is selected.
+    module = models.ForeignKey(Guns, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'tankguns'
+        unique_together = (('tank', 'module'),)
+
+
+class Tanks(models.Model):
+    tank_id = models.IntegerField(primary_key=True)
+    tank_name = models.CharField(max_length=100, blank=True, null=True)
+    image_preview = models.CharField(max_length=200, blank=True, null=True)
+    image_normal = models.CharField(max_length=200, blank=True, null=True)
+    nation = models.CharField(max_length=20, blank=True, null=True)
+    is_premium = models.CharField(max_length=1, blank=True, null=True)
+    tier = models.SmallIntegerField(blank=True, null=True)
+    tank_type = models.CharField(max_length=20, blank=True, null=True)
+    front = models.SmallIntegerField(blank=True, null=True)
+    sides = models.SmallIntegerField(blank=True, null=True)
+    rear = models.SmallIntegerField(blank=True, null=True)
+    speed_forward = models.SmallIntegerField(blank=True, null=True)
+    speed_backward = models.SmallIntegerField(blank=True, null=True)
+    hp = models.SmallIntegerField(blank=True, null=True)
+    move_down_arc = models.SmallIntegerField(blank=True, null=True)
+    move_up_arc = models.SmallIntegerField(blank=True, null=True)
+    caliber = models.SmallIntegerField(blank=True, null=True)
+    fire_rate = models.FloatField(blank=True, null=True)
+    reload_time = models.FloatField(blank=True, null=True)
+    clip_capacity = models.SmallIntegerField(blank=True, null=True)
+    clip_reload_time = models.FloatField(blank=True, null=True)
+    gun_traverse_speed = models.FloatField(blank=True, null=True)
+    turret_traverse_speed = models.SmallIntegerField(blank=True, null=True)
+    hull_hp = models.SmallIntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'tanks'
 
 
 class Turrets(models.Model):

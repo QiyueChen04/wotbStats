@@ -13,42 +13,21 @@ export default function Compare() {
   const [allTanks, setAllTanks] = useState([]);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-
   const [chosenTanks, setChosenTanks] = useState([]);
 
   async function handleAddTank(tank_id) {
       try {
-          const url = 'http://127.0.0.1:8000/api/tankInfo/'; // Adjust the URL as needed
+          const url = 'http://127.0.0.1:8000/api/getTankInfo/'; 
           const response = await axios.get(url, {
               params: {
                   tank_id: tank_id
               }
           });
-          console.log(response.data[0])
           setChosenTanks([...chosenTanks, response.data[0]]);
       } catch (error) {
           console.error('Error fetching data:', error);
       }
   }
-  // const fetchTankData = async (tank_name) => {
-  //   try {
-  //     // Make API call to your Django backend
-  //     const response = await axios.get('/api/endpoint', {
-  //       params: {
-  //         arg1: arg1,
-  //         arg2: arg2
-  //       }
-  //     });
-
-  //     // Set data received from the backend
-  //     setData(response.data);
-  //   } catch (error) {
-  //     console.error('Error fetching data:', error);
-  //   }
-  // };
-  // function handleAddTank(newTank) {
-  //   setChosenTanks([...chosenTanks, newTank]);
-  // }
 
   function handleRemoveTank(removeTank) {
     setChosenTanks(
@@ -57,7 +36,7 @@ export default function Compare() {
   }
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/allTanks/")
+    fetch("http://127.0.0.1:8000/api/getAllTanks/")
       .then(res => res.json())
       .then(
         (result) => {
